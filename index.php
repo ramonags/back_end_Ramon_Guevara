@@ -37,13 +37,13 @@
               <option value="" selected>Elige un tipo</option>
             </select>
           </div>
-          <div class="filtroPrecio">
+          <div class="filtroPrecio ">
             <label for="rangoPrecio">Precio:</label>
             <input type="text" id="rangoPrecio" name="precio" value="" />
           </div>
           <div class="botonField">
-            <input type="submit" class="btn white" value="Buscar" id="submitButton">
-          </div>
+          <button class="btn white" type="button" id="submitButton" style="color: #26a69a">Buscar</button>
+        </div>
         </div>
       </form>
     </div>
