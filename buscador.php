@@ -1,5 +1,6 @@
 <?php
-$ciudad =htmlspecialchars($_GET['ciudad']);
+
+$ciudad = htmlspecialchars($_GET['ciudad']);
 $tipo = htmlspecialchars($_GET['tipo']);
 $precio = htmlspecialchars($_GET['precio']);
 
@@ -8,7 +9,8 @@ $pos = strpos($precio, ';');
 $min = substr($precio, 0, $pos);
 $max = substr($precio, $pos+1);
 
-$file = fopen("data-1.json", "r") or die("No se encuentra el archivo");
+$file = fopen("data-1.json", "r") or die("No se puede abrir el archivo");
+
 $json = fread($file, filesize('data-1.json'));
 $data = json_decode($json, true);
 
@@ -22,32 +24,33 @@ foreach($data as $i){
         array_push($r, $i);
     }
 }
+
 $result = array();
 if(!empty($ciudad) && !empty($tipo)){
-  foreach ($r as $e ) {
-    if ($e['ciudad']==$ciudad && $e['Tipo']==$tipo){
-      array_push($result, $e);
-
+    foreach($r as $e){
+        if($e['Ciudad']==$ciudad && $e['Tipo']==$tipo){
+            array_push($result, $e);
+        }
     }
-  }
-}elseif (!empty($ciudad)) {
-  foreach ($r as $e) {
-    if($e['Ciudad']==$ciudad){
-        array_push($result, $e);
+} elseif(!empty($ciudad)){
+    foreach($r as $e){
+        if($e['Ciudad']==$ciudad){
+            array_push($result, $e);
+        }
     }
-  }
-}elseif (!empty($tipo)) {
-  foreach ($r as $e) {
-    if($e['Tipo']==$tipo){
-        array_push($result, $e);
+} elseif(!empty($tipo)){
+    foreach($r as $e){
+        if($e['Tipo']==$tipo){
+            array_push($result, $e);
+        }
     }
-  }
-}else{
-  $result = $r
+} else {
+    $result = $r;
 }
 
+
 $rjson = json_encode($result);
-echo '{"result":"success", "message":"El Proceso fue exitoso","data":'.$rjson.'}';
+echo '{"result":"success", "message":"Resultados obtenidos exitosamente", "data":'.$rjson.'}';
 
 fclose($file);
- ?>
+?>
